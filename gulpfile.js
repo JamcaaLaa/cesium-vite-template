@@ -1,6 +1,5 @@
 import gulp from 'gulp'
 import del from 'del'
-import gulpIgnore from 'gulp-ignore'
 
 const taskName = process.argv[2]
 
@@ -23,7 +22,6 @@ const staticCopyTask = () => {
 
   return gulp
     .src([`${baseDir}/!(Scene)/**/*`, `${baseDir}/Cesium*`])
-    .pipe(gulpIgnore.exclude(`${baseDir}/Scene`))
     .pipe(gulp.dest('public'))
 }
 staticCopyTask.displayName = 'static-copy'
