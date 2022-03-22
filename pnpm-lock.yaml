@@ -13,11 +13,9 @@ specifiers:
   vite-plugin-externals: ^0.4.0
   vite-plugin-html-config: ^1.0.8
 
-dependencies:
-  cesium: 1.91.0
-
 devDependencies:
   '@types/node': 17.0.21
+  cesium: 1.91.0
   del: 6.0.0
   husky: 7.0.4
   lint-staged: 12.3.5
@@ -154,7 +152,7 @@ packages:
 
   /cesium/1.91.0:
     resolution: {integrity: sha512-HCwwYq7+qqB8c9ydz51luX1KP/apMiMVA8UAu8C7V2SOANUjOZQSi3CcXAtXXn1oUZQDrJlBs6sBT9nt0zRRLg==}
-    dev: false
+    dev: true
 
   /clean-stack/2.2.0:
     resolution: {integrity: sha512-4diC9HaTE+KRAMWhDhrGOECgWZxoevMc5TlkObMqNSsVU62PYzXZ/SMTjzyGAFF1YusgxGcSWTEXBhp0CPwQ1A==}

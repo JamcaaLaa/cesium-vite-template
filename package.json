@@ -11,11 +11,9 @@
     "static-copy": "node static-copy.js",
     "prepare": "husky install"
   },
-  "dependencies": {
-    "cesium": "^1.91.0"
-  },
   "devDependencies": {
     "@types/node": "^17.0.21",
+    "cesium": "^1.91.0",
     "del": "^6.0.0",
     "husky": "^7.0.0",
     "lint-staged": "^12.3.5",
