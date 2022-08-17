@@ -1,14 +1,18 @@
 <template>
   <div ref="containerRef" id="cesiumContainer"></div>
   <div ref="unvisibleCreditRef" v-show="false"></div>
+  <Subscriber />
 </template>
 
 <script lang="ts" setup>
 import { ref, onMounted, markRaw } from 'vue'
 import { ArcGisMapServerImageryProvider, Camera, Viewer, Rectangle } from 'cesium'
+import { useSysStore } from '@/store/sys'
+import Subscriber from './Subscriber.vue'
 
 const containerRef = ref<HTMLDivElement>()
 const unvisibleCreditRef = ref<HTMLDivElement>()
+const sysStore = useSysStore()
 
 Camera.DEFAULT_VIEW_RECTANGLE = Rectangle.fromDegrees(
   75.0, // 东
@@ -40,6 +44,7 @@ onMounted(() => {
   })
 
   const rawViewer = markRaw(viewer)
+  sysStore.setCesiumViewer(rawViewer)
 })
 </script>
 
