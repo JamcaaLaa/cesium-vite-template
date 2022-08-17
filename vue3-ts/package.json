@@ -1,6 +1,6 @@
 {
-  "name": "vue3-ts",
-  "version": "0.0.0",
+  "name": "vue3-ts-cesium-starter",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "postinstall": "node static-copy.js",
