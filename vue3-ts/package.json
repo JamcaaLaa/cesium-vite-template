@@ -7,7 +7,7 @@
     "static-copy": "node static-copy.js",
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "serve": "vite preview"
+    "preview": "vite preview"
   },
   "dependencies": {
     "pinia": "^2.0.18",

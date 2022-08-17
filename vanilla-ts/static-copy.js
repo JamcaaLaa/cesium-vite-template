@@ -1,5 +1,7 @@
 import copy from 'recursive-copy'
-import del from 'del'
+import {
+  deleteSync
+} from 'del'
 
 const baseDir = `node_modules/cesium/Build/CesiumUnminified`
 const targets = [
@@ -7,13 +9,11 @@ const targets = [
   'ThirdParty/**/*',
   'Widgets/**/*',
   'Workers/**/*',
-  'Cesium.d.ts',
   'Cesium.js',
-  'Cesium.js.map'
 ]
 
-del(targets.map((src) => `public/${src}`))
-copy(baseDir, `public`, {
+deleteSync(targets.map((src) => `public/lib/cesium/${src}`))
+copy(baseDir, `public/lib/cesium/`, {
   expand: true,
   overwrite: true,
   filter: targets
