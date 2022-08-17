@@ -4,22 +4,21 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, shallowRef, onMounted } from 'vue'
+import { ref, onMounted, markRaw } from 'vue'
 import { ArcGisMapServerImageryProvider, Camera, Viewer, Rectangle } from 'cesium'
 
-const containerRef = ref<HTMLDivElement>(null)
-const unvisibleCreditRef = ref<HTMLDivElement>(null)
-const viewer = shallowRef<Viewer>()
+const containerRef = ref<HTMLDivElement>()
+const unvisibleCreditRef = ref<HTMLDivElement>()
+
+Camera.DEFAULT_VIEW_RECTANGLE = Rectangle.fromDegrees(
+  75.0, // 东
+  0.0, // 南
+  140.0, // 西
+  60.0 // 北
+)
 
 onMounted(() => {
-  Camera.DEFAULT_VIEW_RECTANGLE = Rectangle.fromDegrees(
-    75.0, // 东
-    0.0, // 南
-    140.0, // 西
-    60.0 // 北
-  )
-
-  viewer.value = new Viewer(containerRef.value, {
+  const viewer = new Viewer(containerRef.value as HTMLElement, {
     animation: false,
     timeline: false,
     geocoder: false,
@@ -39,6 +38,8 @@ onMounted(() => {
       requestWebgl2: true
     }
   })
+
+  const rawViewer = markRaw(viewer)
 })
 </script>
 

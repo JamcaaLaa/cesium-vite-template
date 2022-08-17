@@ -21,7 +21,8 @@
     "target": "esnext"
   },
   "include": [
-    "src/**/*.{ts,d.ts,tsx,vue}",
-    "./vite.config.ts"
+    "env.d.ts",
+    "src/**/*",
+    "./vite.config.*"
   ]
 }

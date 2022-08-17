@@ -1,8 +1,9 @@
+import { fileURLToPath, URL } from 'node:url'
 import { defineConfig, loadEnv } from 'vite'
-import { resolve as resolvePath } from 'path'
+import vue from '@vitejs/plugin-vue'
+
 import htmlConfig from 'vite-plugin-html-config'
 import { viteExternalsPlugin } from 'vite-plugin-externals'
-import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default ({ mode: VITE_MODE }: { mode: string }) => {
@@ -11,43 +12,40 @@ export default ({ mode: VITE_MODE }: { mode: string }) => {
   console.log('ENV: ', env)
 
   const plugins = [vue()]
-  const htmlConfigHeaderScripts = []
 
-  // ******* Always use external CesiumJS in production mode *******
-  // ******* 总是在 production 模式外部化 CesiumJS 库（可以用CDN代替，后续考虑使用环境变量） *******
-  if (VITE_MODE === 'production') {
-    const externalConfig = viteExternalsPlugin({
-      cesium: 'Cesium'
-    })
-    plugins.push(externalConfig)
-    htmlConfigHeaderScripts.push({
-      src: './Cesium.js'
-    })
-  }
-
-  // ******* Always use external CesiumJS's style util official package output. *******
-  // ******* 直到官方 CesiumJS 包导出样式文件前，都使用外部样式 *******
+  const externalConfig = viteExternalsPlugin({
+    cesium: 'Cesium'
+  })
+  const htmlConfigs = htmlConfig({
+    headScripts: [
+      {
+        src: './lib/cesium/Cesium.js'
+      }
+    ],
+    links: [
+      {
+        // ******* Always use external CesiumJS's style util official package output. *******
+        // ******* 直到官方 CesiumJS 包导出样式文件前，都使用外部样式 *******
+        rel: 'stylesheet',
+        href: './lib/cesium/Widgets/widgets.css'
+      }
+    ]
+  })
   plugins.push(
-    htmlConfig({
-      links: [
-        {
-          rel: 'stylesheet',
-          href: './Widgets/widgets.css'
-        }
-      ]
-    })
+    externalConfig,
+    htmlConfigs
   )
 
   return defineConfig({
     root: './',
     build: {
-      assetsDir: 'statics',
+      assetsDir: './',
       minify: ['false'].includes(env.VITE_IS_MINIFY) ? false : true
     },
     plugins: plugins,
     resolve: {
       alias: {
-        '@': resolvePath(__dirname, 'src')
+        '@': fileURLToPath(new URL('./src', import.meta.url))
       }
     }
   })
